@@ -60,10 +60,8 @@ class _ToolWebViewScreenState extends State<ToolWebViewScreen> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) {
-        if (!didPop) {
-          _handleBackNavigation();
-        }
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop) _handleBackNavigation();
       },
       child: Scaffold(
         backgroundColor: AppColors.background,

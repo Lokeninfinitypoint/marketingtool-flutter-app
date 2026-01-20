@@ -67,12 +67,12 @@ class _HomeScreenState extends State<HomeScreen> {
     await _controller.reload();
   }
 
-  Future<bool> _onWillPop() async {
+  Future<void> _handleBackNavigation() async {
     if (await _controller.canGoBack()) {
       await _controller.goBack();
-      return false;
+    } else {
+      if (mounted) Navigator.maybePop(context);
     }
-    return true;
   }
 
   Future<void> _signOut() async {
@@ -122,8 +122,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop) _handleBackNavigation();
+      },
       child: Scaffold(
         backgroundColor: const Color(0xFF0E0C15),
         appBar: AppBar(
