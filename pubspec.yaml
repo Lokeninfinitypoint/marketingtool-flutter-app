@@ -17,6 +17,14 @@ dependencies:
   url_launcher: ^6.2.2
   webview_flutter: ^4.4.2
   flutter_secure_storage: ^9.0.0
+  # State Management
+  provider: ^6.1.1
+  # UI Components
+  carousel_slider: ^4.2.1
+  shimmer: ^3.0.0
+  cached_network_image: ^3.3.1
+  # Charts for Analytics
+  fl_chart: ^0.66.0
 
 dev_dependencies:
   flutter_test:
@@ -28,3 +36,4 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/data/

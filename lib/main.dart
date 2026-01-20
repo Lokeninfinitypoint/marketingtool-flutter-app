@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'providers/tools_provider.dart';
 import 'screens/splash_screen.dart';
 
 void main() {
@@ -22,22 +24,27 @@ class MarketingToolApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'MarketingTool',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF8B5CF6),
-          brightness: Brightness.dark,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ToolsProvider()..initialize()),
+      ],
+      child: MaterialApp(
+        title: 'MarketingTool',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xFF8B5CF6),
+            brightness: Brightness.dark,
+          ),
+          scaffoldBackgroundColor: const Color(0xFF0E0C15),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Color(0xFF0E0C15),
+            elevation: 0,
+          ),
         ),
-        scaffoldBackgroundColor: const Color(0xFF0E0C15),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF0E0C15),
-          elevation: 0,
-        ),
+        home: const SplashScreen(),
       ),
-      home: const SplashScreen(),
     );
   }
 }
