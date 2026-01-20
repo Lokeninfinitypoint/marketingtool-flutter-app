@@ -48,18 +48,18 @@ class _ToolWebViewScreenState extends State<ToolWebViewScreen> {
     await _controller.reload();
   }
 
-  Future<bool> _onWillPop() async {
-    if (await _controller.canGoBack()) {
-      await _controller.goBack();
-      return false;
-    }
-    return true;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
+        if (await _controller.canGoBack()) {
+          await _controller.goBack();
+        } else {
+          if (context.mounted) Navigator.pop(context);
+        }
+      },
       child: Scaffold(
         backgroundColor: AppColors.background,
         appBar: AppBar(
@@ -83,7 +83,7 @@ class _ToolWebViewScreenState extends State<ToolWebViewScreen> {
               Text(
                 'app.marketingtool.pro',
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.5),
+                  color: Colors.white.withValues(alpha: 0.5),
                   fontSize: 12,
                 ),
               ),
