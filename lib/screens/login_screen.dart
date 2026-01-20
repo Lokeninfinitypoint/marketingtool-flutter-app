@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../services/auth_service.dart';
 import 'signup_screen.dart';
-import 'home_screen.dart';
+import 'main_navigation.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         Navigator.pushReplacement(
           context,
           PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => const HomeScreen(),
+            pageBuilder: (context, animation, secondaryAnimation) => const MainNavigation(),
             transitionsBuilder: (context, animation, secondaryAnimation, child) {
               return FadeTransition(opacity: animation, child: child);
             },
