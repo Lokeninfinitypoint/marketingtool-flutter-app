@@ -48,16 +48,21 @@ class _ToolWebViewScreenState extends State<ToolWebViewScreen> {
     await _controller.reload();
   }
 
+  Future<void> _handleBackNavigation() async {
+    if (await _controller.canGoBack()) {
+      await _controller.goBack();
+    } else {
+      if (mounted) Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvokedWithResult: (didPop, result) async {
-        if (didPop) return;
-        if (await _controller.canGoBack()) {
-          await _controller.goBack();
-        } else {
-          if (context.mounted) Navigator.pop(context);
+      onPopInvoked: (didPop) {
+        if (!didPop) {
+          _handleBackNavigation();
         }
       },
       child: Scaffold(
